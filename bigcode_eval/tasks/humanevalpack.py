@@ -510,7 +510,7 @@ class HumanEvalFixBase(HumanEvalPackGenerative):
                     "<empty_output>ASSISTANT \n" + prompt_base
             prompt = prompt.format(system = context, query = instruction)
         elif self.prompt == 'refact-cc':
-            prompt = '<fim_prefix>{context} \n {instruction} \n {prompt_base}:\n    """<fim_suffix>\n return result<fim_middle>'
+            prompt = f'<fim_prefix>{context} \n {instruction} \n {prompt_base}:\n    """<fim_suffix>\n return result <fim_middle>'
         else:
             prompt = super().get_prompt(prompt_base, instruction, context)
         return prompt.strip()
