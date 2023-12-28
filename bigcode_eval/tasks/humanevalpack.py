@@ -504,6 +504,13 @@ class HumanEvalFixBase(HumanEvalPackGenerative):
         elif self.prompt == "diff-carper":
             prompt = f"<NME> {self.get_filename_with_extension(input_file=doc['entry_point'])}\n"
             prompt += f"<BEF> {context}\n<MSG> {instruction}\n<DFF>"
+        elif self.prompt == 'refact-chat':
+            prompt = "<empty_output>SYSTEM {system}\n" + \
+                    "<empty_output>USER {query}\n" +\
+                    "<empty_output>ASSISTANT \n" + prompt_base
+            prompt = prompt.format(system = context, query = instruction)
+        elif self.prompt == 'refact-cc':
+            prompt = '<fim_prefix>{context} \n {instruction} \n {prompt_base}:\n    """<fim_suffix>\n return result<fim_middle>'
         else:
             prompt = super().get_prompt(prompt_base, instruction, context)
         return prompt.strip()
